@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: basicneuralnetwork-pod
+spec:
+  containers:
+  - name: basicneuralnetwork-container
+    image: python:3.11
+    command: ["python", "/path/to/basicneuralnetwork.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: chatgptapicall-pod
+spec:
+  containers:
+  - name: chatgptapicall-container
+    image: python:3.11
+    command: ["python", "/path/to/chatgptapicall.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: latindeclension-pod
+spec:
+  containers:
+  - name: latindeclension-container
+    image: python:3.11
+    command: ["python", "/path/to/latindeclension.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: textgeneration-pod
+spec:
+  containers:
+  - name: textgeneration-container
+    image: python:3.11
+    command: ["python", "/path/to/textgeneration.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: datasetsplitter-pod
+spec:
+  containers:
+  - name: datasetsplitter-container
+    image: python:3.11
+    command: ["python", "/path/to/datasetsplitter.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: makevectors-pod
+spec:
+  containers:
+  - name: makevectors-container
+    image: python:3.11
+    command: ["python", "/path/to/makevectors.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tokenembedding-pod
+spec:
+  containers:
+  - name: tokenembedding-container
+    image: python:3.11
+    command: ["python", "/path/to/tokenembedding.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: englishgerund-pod
+spec:
+  containers:
+  - name: englishgerund-container
+    image: python:3.11
+    command: ["python", "/path/to/englishgerund.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: modelcheckpointing-pod
+spec:
+  containers:
+  - name: modelcheckpointing-container
+    image: python:3.11
+    command: ["python", "/path/to/modelcheckpointing.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: trainingscript-pod
+spec:
+  containers:
+  - name: trainingscript-container
+    image: python:3.11
+    command: ["python", "/path/to/trainingscript.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: evaluationmetrics-pod
+spec:
+  containers:
+  - name: evaluationmetrics-container
+    image: python:3.11
+    command: ["python", "/path/to/evaluationmetrics.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: preprocessdata.p-pod
+spec:
+  containers:
+  - name: preprocessdata.p-container
+    image: python:3.11
+    command: ["python", "/path/to/preprocessdata.p.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vocabularybuilder-pod
+spec:
+  containers:
+  - name: vocabularybuilder-container
+    image: python:3.11
+    command: ["python", "/path/to/vocabularybuilder.py", "param1", "param2"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: finetuning-pod
+spec:
+  containers:
+  - name: finetuning-container
+    image: python:3.11
+    command: ["python", "/path/to/finetuning.py", "param1", "param2"]
