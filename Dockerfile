@@ -9,7 +9,6 @@ COPY requirements.txt .
 
 # Install required packages
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install micrograd
 
 # Copy the basic_neuralnetwork.py script into the container
 COPY basic_neuralnetwork.py .

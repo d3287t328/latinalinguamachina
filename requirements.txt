@@ -1,3 +1,4 @@
+micrograd==0.1.0
 matplotlib==3.4.3
 uvicorn==0.15.0
 bottlerocket==0.1.1
