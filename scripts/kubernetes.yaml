@@ -1,0 +1,101 @@
+
+# Boilerplate. In this example, each script is included as a key-value pair in a ConfigMap object, which is mounted as a volume inside each pod. Each pod runs a container based on the python:3.9 image, and the script is executed inside the container using the `command parameter of the PodSpec object.
+# To deploy the pods to a Kubernetes cluster, you can use a Kubernetes deployment file or a CI/CD tool like Tekton or ArgoCD. When the pods are deployed, you can monitor their status and logs using Kubernetes tools like kubectl.
+# Using a Kubernetes cluster to run each script in its own pod can help to improve resource usage and scalability, especially if you have a large number of scripts or if the scripts require different configurations. However, setting up a Kubernetes cluster can be complex and requires knowledge of Kubernetes concepts and tools. It's important to carefully consider the requirements and limitations of your use case before deciding whether to use a Kubernetes cluster.
+
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-namespace
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scripts-config
+  namespace: my-namespace
+data:
+  basic_neuralnetwork.py: |
+    #!/usr/bin/env python
+    # Script for running basic_neuralnetwork.py
+    import argparse
+    parser = argparse.ArgumentParser(description='Run basic_neuralnetwork.py')
+    parser.add_argument('-x', type=int, required=True, help='Value for x')
+    parser.add_argument('-y', type=int, required=True, help='Value for y')
+    args = parser.parse_args()
+
+    # Run script here using args.x and args.y
+
+  make_vectors.py: |
+    #!/usr/bin/env python
+    # Script for running make_vectors.py
+    import argparse
+    parser = argparse.ArgumentParser(description='Run make_vectors.py')
+    parser.add_argument('-x', type=int, required=True, help='Value for x')
+    parser.add_argument('-y', type=int, required=True, help='Value for y')
+    args = parser.parse_args()
+
+    # Run script here using args.x and args.y
+
+  token_embedding.py: |
+    #!/usr/bin/env python
+    # Script for running token_embedding.py
+    import argparse
+    parser = argparse.ArgumentParser(description='Run token_embedding.py')
+    parser.add_argument('-x', type=int, required=True, help='Value for x')
+    parser.add_argument('-y', type=int, required=True, help='Value for y')
+    args = parser.parse_args()
+
+    # Run script here using args.x and args.y
+
+  # Repeat for each script...
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: basic-neuralnetwork-pod
+  namespace: my-namespace
+spec:
+  containers:
+  - name: basic-neuralnetwork-container
+    image: python:3.11
+    command: ["/bin/sh", "-c", "/app/basic_neuralnetwork.py -x 1 -y 2"]
+    volumeMounts:
+      - name: scripts-volume
+        mountPath: /app
+  volumes:
+  - name: scripts-volume
+    configMap:
+      name: scripts-config
+      items:
+      - key: basic_neuralnetwork.py
+        path: basic_neuralnetwork.py
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: make-vectors-pod
+  namespace: my-namespace
+spec:
+  containers:
+  - name: make-vectors-container
+    image: python:3.11
+    command: ["/bin/sh", "-c", "/app/make_vectors.py -x 1 -y 2"]
+    volumeMounts:
+      - name: scripts-volume
+        mountPath: /app
+  volumes:
+  - name: scripts-volume
+    configMap:
+      name: scripts-config
+      items:
+      - key: make_vectors.py
+        path: make_vectors.py
+
+  # Repeat for each script...
