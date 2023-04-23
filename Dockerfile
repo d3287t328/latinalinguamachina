@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the basic_neuralnetwork.py script into the container
-COPY basic_neuralnetwork.py .
+COPY scripts/basic_neuralnetwork.py .
 
 # Expose the port for the ASGI server
 EXPOSE 8000
