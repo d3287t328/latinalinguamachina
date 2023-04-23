@@ -13,7 +13,17 @@ from my_model import MyModel  # replace with your own model class
 # set device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+
 # define hyperparameters
+# batch_size: The number of samples to process at once during training.
+# learning_rate: The rate at which the model updates its parameters during training. A higher learning rate can result in faster training, but may cause the model to converge to suboptimal results.
+# weight_decay: A regularization term added to the loss function to prevent overfitting.
+# num_epochs: The number of times the entire dataset is passed through the model during training.
+# max_grad_norm: The maximum norm of the gradients during training. Gradients with a norm larger than this value will be clipped to this value to prevent the gradients from exploding.
+# patience: The number of epochs to wait before reducing the learning rate or stopping the training process if the validation loss does not improve.
+# factor: The factor by which the learning rate is reduced if the validation loss does not improve for patience epochs.
+# min_lr: The minimum learning rate that the model can reach during training.
+
 batch_size = 32
 learning_rate = 1e-3
 weight_decay = 1e-5
