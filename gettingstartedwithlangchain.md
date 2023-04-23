@@ -1,4 +1,4 @@
-iTo get started with LangChain, you will first need to install Python and pip on your system. Once you have done that, you can follow these steps:
+To get started with LangChain, you will first need to install Python and pip on your system. Once you have done that, you can follow these steps:
 
 
 Clone the LangChain repository to your local machine using the git clone command.
@@ -18,3 +18,5 @@ Modify the main.py file in your project directory to specify the input and outpu
 Run the main.py file using the python main.py command.
 
 This should get you started with using LangChain to build a new LLM in classical Latin. Good luck!
+
+
