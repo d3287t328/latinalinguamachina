@@ -67,4 +67,7 @@ class MLP(Module):
 if __name__ == "__main__":
     mlp = MLP(3, [5, 2])
     input_data = [Value(random.uniform(-1, 1)) for _ in range(3)]
-    mlp.visualize(input_data)
+    output = mlp(input_data)
+    activations = [o.data for o in output]
+    print("Output Neuron Activations:", activations)
+
