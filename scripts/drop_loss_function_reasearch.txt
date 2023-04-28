@@ -1,0 +1,23 @@
+Here's an example of a mean squared error (MSE) loss function for a regression problem:
+
+```python
+import tensorflow as tf
+
+def mse_loss(y_true, y_pred):
+    """Calculates mean squared error between true and predicted labels"""
+    loss = tf.reduce_mean(tf.square(y_true - y_pred))
+    return loss
+```
+
+And here's an example of a binary cross-entropy loss function for a classification problem:
+
+```python
+import tensorflow as tf
+
+def binary_crossentropy(y_true, y_pred):
+    """Calculates binary cross-entropy loss between true and predicted labels"""
+    loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y_true, logits=y_pred))
+    return loss
+```
+
+Note that there are many other loss functions available in TensorFlow, and the choice of which one to use depends on the problem you're trying to solve.
