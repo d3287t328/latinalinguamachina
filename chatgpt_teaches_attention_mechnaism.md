@@ -1,7 +1,8 @@
-```+---------+       +---------+       +---------+       +---------------------------------------+
-   |  Query  |------>|   Key   |------>|  Value  |------>| Raw Attn Scores for Token1            |
-   +---------+       +---------+       +---------+       | (dot product of Query1 & Key vectors) |
-                                                         +---------------------------------------+
+```
++---------+       +---------+       +---------+       +---------------------------------------+
+|  Query  |------>|   Key   |------>|  Value  |------>| Raw Attn Scores for Token1            |
++---------+       +---------+       +---------+       | (dot product of Query1 & Key vectors) |
+                                                      +---------------------------------------+
                                                                |
                                                                v
                                                    +---------------------------------------+
@@ -56,7 +57,8 @@
                                                                v
                                                    +---------------------------------------+
                                                    | Output for the Entire Sequence        |
-                                                   +---------------------------------------+```
+                                                   +---------------------------------------+
+   ```
 
 
 Here's a simple wire diagram of the attention mechanism:
@@ -86,9 +88,9 @@ Here's a simple wire diagram of the attention mechanism:
 
 What is a dot product?
 
-a = [1, 2, 3]
+```a = [1, 2, 3]
 b = [4, 5, 6]
-dot_product = sum([a[i]*b[i] for i in range(len(a))])
+dot_product = sum([a[i]*b[i] for i in range(len(a))])```
 
 
 In this example, we have two lists of numbers a and b, each with three elements. To calculate the dot product of these two vectors, we first multiply the corresponding elements of the two lists (1 and 4, 2 and 5, and 3 and 6), and then sum the resulting products. The dot product of a and b is therefore 32.
@@ -104,35 +106,35 @@ A dense layer performs a linear operation on the input data, followed by an opti
 
 css
 
-y = Wx + b
+```y = Wx + b```
 
 Where W is a weight matrix, x is the input vector, and b is a bias vector. After this linear operation, an optional activation function f can be applied element-wise to the result:
 
 scss
 
-y = f(Wx + b)
+```y = f(Wx + b)```
 
 Some common activation functions used in neural networks are ReLU (Rectified Linear Unit), sigmoid, and tanh.
 
 When creating a dense layer in TensorFlow, you need to specify the number of output units (neurons) and, optionally, an activation function. For example:
 
 python
+```import tensorflow as tf
 
-import tensorflow as tf
+dense_layer = tf.keras.layers.Dense(units=128, activation='relu')```
 
-dense_layer = tf.keras.layers.Dense(units=128, activation='relu')
 In this example, we create a dense layer with 128 output units and the ReLU activation function. During the forward pass of the neural network, this dense layer will perform the linear operation followed by the ReLU activation on its input data.
 
 Let's create a simple code diagram to demonstrate a neural network with two dense layers. The input has 4 features, the first dense layer has 3 units, and the second dense layer has 2 units.
 
 rust
 
-Input:    Dense Layer 1:    Dense Layer 2:
+```Input:    Dense Layer 1:    Dense Layer 2:
 
 [ x1 ] --> [ N1_1 ] --> [ N2_1 ]
 [ x2 ] --> [ N1_2 ] --> [ N2_2 ]
 [ x3 ] --> [ N1_3 ]
-[ x4 ]
+[ x4 ]```
 
 Here's the code to create this neural network using TensorFlow:
 
@@ -192,18 +194,18 @@ Here's the relevant code snippet from the Attention class:
 
 python
 
-class Attention(tf.keras.layers.Layer):
+```class Attention(tf.keras.layers.Layer):
     def __init__(self, units):
         super(Attention, self).__init__()
         self.W1 = tf.keras.layers.Dense(units)
-        ...
+        ...```
 self.W1 is created during the initialization of the Attention layer with a specified number of units. This dense layer does not have an activation function, so it performs only a linear transformation on its input.
 
 In the call method of the Attention class, self.W1 is applied to the input features (features) as follows:
 
 python
 
-score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
+```score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))```
 
 self.W1(features) computes the weighted sum of the input features using the learned weights of the dense layer, and this result is combined with the hidden state projection (self.W2(hidden_with_time_axis)) before passing through the tanh activation function. The output of this operation is the attention score, which is used to compute the attention weights and the context vector.
 
@@ -214,7 +216,7 @@ hidden is the hidden state of the model, which contains information about the in
 Here's an example of how to create a simple RNN model using TensorFlow that generates a hidden state based on an input sequence. In this example, we use the tf.keras.layers.SimpleRNN layer, which is a basic RNN layer provided by TensorFlow:
 
 python
-
+```
 import tensorflow as tf
 
 # Define the RNN model
@@ -225,13 +227,13 @@ model = tf.keras.Sequential([
 
 # Print the model summary
 model.summary()
-
+```
 In this example, the input shape is defined as (None, 4), which means that the model can accept input sequences of variable length (None) with 4 features at each time step. The model consists of a single SimpleRNN layer with 32 hidden units. When the model processes the input sequence, it generates a hidden state at each time step based on the input data and the previous hidden state.
 
 To use the hidden state generated by the RNN in the attention mechanism, you can create a custom model that combines the RNN layer and the Attention layer. Here's an example:
 
 python
-
+```
 import tensorflow as tf
 
 class RNNWithAttention(tf.keras.Model):
@@ -253,9 +255,9 @@ input_sequence = tf.random.normal(shape=(1, 5, 4))
 
 # Get the context vector and attention weights
 context_vector, attention_weights = model(input_sequence)
-
+```
 In this custom model, the SimpleRNN layer is used to generate the hidden state based on the input sequence, and the Attention layer is used to compute the context vector and attention weights using the RNN output and the hidden state. The model can be extended further to generate an output sequence or perform a specific task, such as sequence classification or sequence-to-sequence prediction.
-
+```
 Input Layer          Hidden Layer          Output Layer
 (3 features)         (4 neurons)          (2 neurons)
 
@@ -265,7 +267,7 @@ Input Layer          Hidden Layer          Output Layer
             /--- W1 ----\   /--- W2 ----/
    x3 -----           H1_3 -----
                      H1_4 -----
-
+```
 Here is an ASCII art representation of the same feedforward neural network with an input layer, one hidden layer (dense layer), and an output layer. The input layer has 3 input features, the hidden layer has 4 neurons, and the output layer has 2 neurons:
 
 x1, x2, and x3 are the input features.
@@ -285,8 +287,8 @@ self.W2(hidden_with_time_axis) computes the weighted sum of the hidden state ten
 After the hidden state projection is computed, it is combined with the input features projection (self.W1(features)) by element-wise addition:
 
 python
-
-score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
+```
+score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))```
 The tanh activation function is then applied to the sum, resulting in the attention score. The attention score is used to compute the attention weights and the context vector, which helps the model focus on the most relevant parts of the input sequence when generating the output.
 
 In summary, the hidden state projection (self.W2(hidden_with_time_axis)) is a linear transformation of the hidden state that makes it compatible with the input features so that they can be combined effectively to compute the attention scores in the attention mechanism.
@@ -296,20 +298,22 @@ Here's a breakdown of the code:
 Import the TensorFlow library:
 
 python
-import tensorflow as tf
+```
+import tensorflow as tf```
 
 Define a custom layer class called Attention that inherits from tf.keras.layers.Layer:
 
-python
-class Attention(tf.keras.layers.Layer):
+python```
+class Attention(tf.keras.layers.Layer):```
+
 The __init__ method initializes the layer with a given number of units and creates three dense layers (fully connected layers) with the specified number of units:
 
-python
+python```
     def __init__(self, units):
         super(Attention, self).__init__()
         self.W1 = tf.keras.layers.Dense(units)
         self.W2 = tf.keras.layers.Dense(units)
-        self.V = tf.keras.layers.Dense(1)
+        self.V = tf.keras.layers.Dense(1)```
 The call method is the core function of the layer, which is invoked when the layer is called during the forward pass of the model. It takes two arguments: features, which is the input data, and hidden, which is the hidden state of the model:
 
 python
