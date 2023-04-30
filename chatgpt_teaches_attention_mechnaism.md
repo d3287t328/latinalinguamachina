@@ -90,15 +90,14 @@ What is a dot product?
 
 ```a = [1, 2, 3]
 b = [4, 5, 6]
-dot_product = sum([a[i]*b[i] for i in range(len(a))])```
-
+dot_product = sum([a[i]*b[i] for i in range(len(a))])
+```
 
 In this example, we have two lists of numbers a and b, each with three elements. To calculate the dot product of these two vectors, we first multiply the corresponding elements of the two lists (1 and 4, 2 and 5, and 3 and 6), and then sum the resulting products. The dot product of a and b is therefore 32.
 
 The attention mechanism is used to calculate the relevance of each input element to the current output element. It then uses these relevance scores to create a context vector that is a weighted sum of the input elements. It is widely used in natural language processing tasks such as machine translation and text summarization.
 
 What are tensflow dense layers?
-
 
 In TensorFlow, dense layers, also known as fully connected layers or linear layers, are a type of artificial neural network layer that connects each neuron in the layer to every neuron in the previous layer. Dense layers are implemented in TensorFlow using the tf.keras.layers.Dense class.
 
@@ -121,7 +120,8 @@ When creating a dense layer in TensorFlow, you need to specify the number of out
 python
 ```import tensorflow as tf
 
-dense_layer = tf.keras.layers.Dense(units=128, activation='relu')```
+dense_layer = tf.keras.layers.Dense(units=128, activation='relu')
+```
 
 In this example, we create a dense layer with 128 output units and the ReLU activation function. During the forward pass of the neural network, this dense layer will perform the linear operation followed by the ReLU activation on its input data.
 
@@ -134,12 +134,13 @@ rust
 [ x1 ] --> [ N1_1 ] --> [ N2_1 ]
 [ x2 ] --> [ N1_2 ] --> [ N2_2 ]
 [ x3 ] --> [ N1_3 ]
-[ x4 ]```
+[ x4 ]
+```
 
 Here's the code to create this neural network using TensorFlow:
 
 python
-Copy code
+```
 import tensorflow as tf
 
 # Define the neural network model
@@ -151,6 +152,7 @@ model = tf.keras.Sequential([
 
 # Print the model summary
 model.summary()
+```
 In this example:
 
 x1, x2, x3, and x4 are the input features.
@@ -159,7 +161,7 @@ N2_1 and N2_2 are the neurons in the second dense layer with the ReLU activation
 Each neuron in the dense layers is fully connected to all neurons in the previous layer. For example, neuron N1_1 receives input from all input features (x1, x2, x3, and x4), and neuron N2_1 receives input from all neurons in the first dense layer (N1_1, N1_2, and N1_3).
 
 Putting it all together in this script:
-
+```
 import tensorflow as tf
 
 class Attention(tf.keras.layers.Layer):
@@ -183,7 +185,7 @@ class Attention(tf.keras.layers.Layer):
         context_vector = tf.reduce_sum(context_vector, axis=1)
 
         return context_vector, attention_weights
-
+```
 This code defines a custom TensorFlow layer that implements an attention mechanism. Attention mechanisms are used in deep learning models, especially in sequence-to-sequence tasks, to weigh the importance of different parts of the input when generating the output. 
 
 what is "self.W1" in the example you just gave?
@@ -198,14 +200,16 @@ python
     def __init__(self, units):
         super(Attention, self).__init__()
         self.W1 = tf.keras.layers.Dense(units)
-        ...```
+        ...
+ ```
 self.W1 is created during the initialization of the Attention layer with a specified number of units. This dense layer does not have an activation function, so it performs only a linear transformation on its input.
 
 In the call method of the Attention class, self.W1 is applied to the input features (features) as follows:
 
 python
 
-```score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))```
+```score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
+```
 
 self.W1(features) computes the weighted sum of the input features using the learned weights of the dense layer, and this result is combined with the hidden state projection (self.W2(hidden_with_time_axis)) before passing through the tanh activation function. The output of this operation is the attention score, which is used to compute the attention weights and the context vector.
 
@@ -303,40 +307,45 @@ import tensorflow as tf```
 
 Define a custom layer class called Attention that inherits from tf.keras.layers.Layer:
 
-python```
-class Attention(tf.keras.layers.Layer):```
+python
+```
+class Attention(tf.keras.layers.Layer):
+```
 
 The __init__ method initializes the layer with a given number of units and creates three dense layers (fully connected layers) with the specified number of units:
 
-python```
+python
+```
     def __init__(self, units):
         super(Attention, self).__init__()
         self.W1 = tf.keras.layers.Dense(units)
         self.W2 = tf.keras.layers.Dense(units)
-        self.V = tf.keras.layers.Dense(1)```
+        self.V = tf.keras.layers.Dense(1)
+ ```
 The call method is the core function of the layer, which is invoked when the layer is called during the forward pass of the model. It takes two arguments: features, which is the input data, and hidden, which is the hidden state of the model:
 
 python
-    def call(self, features, hidden):
+  ```  def call(self, features, hidden):```
 
 The hidden state is expanded along a new dimension to match the shape of the input features:
 
 python
-        hidden_with_time_axis = tf.expand_dims(hidden, 1)
+   ```     hidden_with_time_axis = tf.expand_dims(hidden, 1)```
 
 The attention score is computed using the input features and the expanded hidden state. This is done by applying the dense layers W1 and W2 to the features and hidden state, respectively, and then summing the two results. The tanh activation function is applied to the sum:
 
 python
-        score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
+    ```    score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))```
 The attention weights are computed by applying the V dense layer to the score and then applying the softmax function along the time axis (axis 1). Softmax normalizes the weights so that they sum up to 1:
 
 python
-        attention_weights = tf.nn.softmax(self.V(score), axis=1)
+       ``` attention_weights = tf.nn.softmax(self.V(score), axis=1)```
 The context vector is computed by element-wise multiplication of the attention weights and the input features. Then, the weighted features are summed along the time axis:
 
 python
+```
         context_vector = attention_weights * features
-        context_vector = tf.reduce_sum(context_vector, axis=1)
+        context_vector = tf.reduce_sum(context_vector, axis=1)```
 
 The call method returns the context vector and the attention weights. The context vector represents the input features weighted by their attention scores, which can be used by the model to focus on the most relevant parts of the input:
 
