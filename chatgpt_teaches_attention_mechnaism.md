@@ -294,56 +294,56 @@ In summary, the hidden state projection (self.W2(hidden_with_time_axis)) is a li
 Here's a breakdown of the code:
 
 Import the TensorFlow library:
-
-python
 ```
-import tensorflow as tf```
+import tensorflow as tf
+```
 
 Define a custom layer class called Attention that inherits from tf.keras.layers.Layer:
 
-python
 ```
 class Attention(tf.keras.layers.Layer):
 ```
 
 The __init__ method initializes the layer with a given number of units and creates three dense layers (fully connected layers) with the specified number of units:
 
-python
 ```
     def __init__(self, units):
         super(Attention, self).__init__()
         self.W1 = tf.keras.layers.Dense(units)
         self.W2 = tf.keras.layers.Dense(units)
         self.V = tf.keras.layers.Dense(1)
- ```
+        ```
+   
 The call method is the core function of the layer, which is invoked when the layer is called during the forward pass of the model. It takes two arguments: features, which is the input data, and hidden, which is the hidden state of the model:
 
-python
+
   ```  def call(self, features, hidden):```
 
 The hidden state is expanded along a new dimension to match the shape of the input features:
 
-python
+
    ```     hidden_with_time_axis = tf.expand_dims(hidden, 1)```
 
 The attention score is computed using the input features and the expanded hidden state. This is done by applying the dense layers W1 and W2 to the features and hidden state, respectively, and then summing the two results. The tanh activation function is applied to the sum:
 
-python
+
     ```    score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))```
+    
 The attention weights are computed by applying the V dense layer to the score and then applying the softmax function along the time axis (axis 1). Softmax normalizes the weights so that they sum up to 1:
 
-python
-       ``` attention_weights = tf.nn.softmax(self.V(score), axis=1)```
+
+       ``` attention_weights = tf.nn.softmax(self.V(score), axis=1)
+      ```
 The context vector is computed by element-wise multiplication of the attention weights and the input features. Then, the weighted features are summed along the time axis:
 
-python
 ```
         context_vector = attention_weights * features
-        context_vector = tf.reduce_sum(context_vector, axis=1)```
+        context_vector = tf.reduce_sum(context_vector, axis=1)
+ ```
 
 The call method returns the context vector and the attention weights. The context vector represents the input features weighted by their attention scores, which can be used by the model to focus on the most relevant parts of the input:
 
-python
-        return context_vector, attention_weights
+
+      ```  return context_vector, attention_weights```
 
 This attention mechanism can be used in various sequence-to-sequence models, such as Recurrent Neural Networks (RNNs) or Transformers, to improve their performance in tasks like machine translation, text summarization, and more.
