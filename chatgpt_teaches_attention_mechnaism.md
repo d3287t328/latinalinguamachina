@@ -103,13 +103,9 @@ In TensorFlow, dense layers, also known as fully connected layers or linear laye
 
 A dense layer performs a linear operation on the input data, followed by an optional activation function. The linear operation is a weighted sum of the input features, with each weight representing the strength of the connection between neurons. In mathematical terms, given an input vector x, the output y of a dense layer can be written as:
 
-css
-
 ```y = Wx + b```
 
 Where W is a weight matrix, x is the input vector, and b is a bias vector. After this linear operation, an optional activation function f can be applied element-wise to the result:
-
-scss
 
 ```y = f(Wx + b)```
 
@@ -126,8 +122,6 @@ dense_layer = tf.keras.layers.Dense(units=128, activation='relu')
 In this example, we create a dense layer with 128 output units and the ReLU activation function. During the forward pass of the neural network, this dense layer will perform the linear operation followed by the ReLU activation on its input data.
 
 Let's create a simple code diagram to demonstrate a neural network with two dense layers. The input has 4 features, the first dense layer has 3 units, and the second dense layer has 2 units.
-
-rust
 
 ```Input:    Dense Layer 1:    Dense Layer 2:
 
