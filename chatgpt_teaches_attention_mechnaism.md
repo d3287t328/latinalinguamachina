@@ -88,7 +88,8 @@ Here's a simple wire diagram of the attention mechanism:
 
 What is a dot product?
 
-```a = [1, 2, 3]
+```
+a = [1, 2, 3]
 b = [4, 5, 6]
 dot_product = sum([a[i]*b[i] for i in range(len(a))])
 ```
@@ -103,11 +104,15 @@ In TensorFlow, dense layers, also known as fully connected layers or linear laye
 
 A dense layer performs a linear operation on the input data, followed by an optional activation function. The linear operation is a weighted sum of the input features, with each weight representing the strength of the connection between neurons. In mathematical terms, given an input vector x, the output y of a dense layer can be written as:
 
-```y = Wx + b```
+```
+y = Wx + b
+```
 
 Where W is a weight matrix, x is the input vector, and b is a bias vector. After this linear operation, an optional activation function f can be applied element-wise to the result:
 
-```y = f(Wx + b)```
+```
+y = f(Wx + b)
+```
 
 Some common activation functions used in neural networks are ReLU (Rectified Linear Unit), sigmoid, and tanh.
 
@@ -123,7 +128,8 @@ In this example, we create a dense layer with 128 output units and the ReLU acti
 
 Let's create a simple code diagram to demonstrate a neural network with two dense layers. The input has 4 features, the first dense layer has 3 units, and the second dense layer has 2 units.
 
-```Input:    Dense Layer 1:    Dense Layer 2:
+```
+Input:    Dense Layer 1:    Dense Layer 2:
 
 [ x1 ] --> [ N1_1 ] --> [ N2_1 ]
 [ x2 ] --> [ N1_2 ] --> [ N2_2 ]
@@ -190,7 +196,8 @@ Here's the relevant code snippet from the Attention class:
 
 python
 
-```class Attention(tf.keras.layers.Layer):
+```
+class Attention(tf.keras.layers.Layer):
     def __init__(self, units):
         super(Attention, self).__init__()
         self.W1 = tf.keras.layers.Dense(units)
@@ -202,7 +209,8 @@ In the call method of the Attention class, self.W1 is applied to the input featu
 
 python
 
-```score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
+```
+score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
 ```
 
 self.W1(features) computes the weighted sum of the input features using the learned weights of the dense layer, and this result is combined with the hidden state projection (self.W2(hidden_with_time_axis)) before passing through the tanh activation function. The output of this operation is the attention score, which is used to compute the attention weights and the context vector.
@@ -255,6 +263,7 @@ input_sequence = tf.random.normal(shape=(1, 5, 4))
 context_vector, attention_weights = model(input_sequence)
 ```
 In this custom model, the SimpleRNN layer is used to generate the hidden state based on the input sequence, and the Attention layer is used to compute the context vector and attention weights using the RNN output and the hidden state. The model can be extended further to generate an output sequence or perform a specific task, such as sequence classification or sequence-to-sequence prediction.
+
 ```
 Input Layer          Hidden Layer          Output Layer
 (3 features)         (4 neurons)          (2 neurons)
@@ -317,33 +326,42 @@ The __init__ method initializes the layer with a given number of units and creat
 The call method is the core function of the layer, which is invoked when the layer is called during the forward pass of the model. It takes two arguments: features, which is the input data, and hidden, which is the hidden state of the model:
 
 
-  ```  def call(self, features, hidden):```
+  ``` 
+  def call(self, features, hidden):
+  ```
 
 The hidden state is expanded along a new dimension to match the shape of the input features:
 
 
-   ```     hidden_with_time_axis = tf.expand_dims(hidden, 1)```
+   ```
+   hidden_with_time_axis = tf.expand_dims(hidden, 1
+   ```
 
 The attention score is computed using the input features and the expanded hidden state. This is done by applying the dense layers W1 and W2 to the features and hidden state, respectively, and then summing the two results. The tanh activation function is applied to the sum:
 
 
-    ```    score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))```
+    ```
+    score = tf.nn.tanh(self.W1(features) + self.W2(hidden_with_time_axis))
+    ```
     
 The attention weights are computed by applying the V dense layer to the score and then applying the softmax function along the time axis (axis 1). Softmax normalizes the weights so that they sum up to 1:
 
 
-       ``` attention_weights = tf.nn.softmax(self.V(score), axis=1)
-      ```
+    ```
+    attention_weights = tf.nn.softmax(self.V(score), axis=1)
+    ```
 The context vector is computed by element-wise multiplication of the attention weights and the input features. Then, the weighted features are summed along the time axis:
 
 ```
-        context_vector = attention_weights * features
-        context_vector = tf.reduce_sum(context_vector, axis=1)
- ```
+context_vector = attention_weights * features
+context_vector = tf.reduce_sum(context_vector, axis=1)
+```
 
 The call method returns the context vector and the attention weights. The context vector represents the input features weighted by their attention scores, which can be used by the model to focus on the most relevant parts of the input:
 
 
-      ```  return context_vector, attention_weights```
+```
+return context_vector, attention_weights
+```
 
 This attention mechanism can be used in various sequence-to-sequence models, such as Recurrent Neural Networks (RNNs) or Transformers, to improve their performance in tasks like machine translation, text summarization, and more.
