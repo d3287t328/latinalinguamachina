@@ -4,7 +4,7 @@ For now this repository is going to be a grab bag of tools for Large Language Mo
 
 I hope to build or contribute towards a Large Language Model specifically made for Classical Latin. I expect to insert all of the available classical literature and vocabulary from open source sources. 
 
-== Project Goals ==
+= Project Goals =
 
 1. PDF chat bot service based on https://github.com/mayooear/gpt4-pdf-chatbot-langchain
 2. Latin wikipedia chatbot based on https://twitter.com/StephanSturges/status/1651567091051372549
