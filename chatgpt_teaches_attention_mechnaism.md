@@ -136,6 +136,12 @@ Input:    Dense Layer 1:    Dense Layer 2:
 [ x3 ] --> [ N1_3 ]
 [ x4 ]
 ```
+In this example:
+
+x1, x2, x3, and x4 are the input features.
+N1_1, N1_2, and N1_3 are the neurons in the first dense layer with the ReLU activation function.
+N2_1 and N2_2 are the neurons in the second dense layer with the ReLU activation function.
+Each neuron in the dense layers is fully connected to all neurons in the previous layer. For example, neuron N1_1 receives input from all input features (x1, x2, x3, and x4), and neuron N2_1 receives input from all neurons in the first dense layer (N1_1, N1_2, and N1_3).
 
 Here's the code to create this neural network using TensorFlow:
 
@@ -153,12 +159,6 @@ model = tf.keras.Sequential([
 # Print the model summary
 model.summary()
 ```
-In this example:
-
-x1, x2, x3, and x4 are the input features.
-N1_1, N1_2, and N1_3 are the neurons in the first dense layer with the ReLU activation function.
-N2_1 and N2_2 are the neurons in the second dense layer with the ReLU activation function.
-Each neuron in the dense layers is fully connected to all neurons in the previous layer. For example, neuron N1_1 receives input from all input features (x1, x2, x3, and x4), and neuron N2_1 receives input from all neurons in the first dense layer (N1_1, N1_2, and N1_3).
 
 Putting it all together in this script:
 ```
