@@ -1,9 +1,5 @@
-# python preprocess_data.py input.txt output.txt
-# This will preprocess the text in input.txt and save the preprocessed text to output.txt.
-
-
-import re
 import argparse
+import chardet
 import nltk
 from nltk.tokenize import word_tokenize
 
@@ -33,12 +29,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Read input file
-    with open(args.input_file, 'r') as f:
-        text = f.read()
+    with open(args.input_file, 'rb') as f:
+        file_contents = f.read()
+        file_encoding = chardet.detect(file_contents)['encoding']
+        text = file_contents.decode(file_encoding)
 
     # Preprocess text
     text = preprocess_text(text)
 
     # Write preprocessed text to output file
-    with open(args.output_file, 'w') as f:
+    with open(args.output_file, 'w', encoding='utf-8') as f:
         f.write(text)
+
