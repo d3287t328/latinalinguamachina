@@ -3,7 +3,7 @@ Aim to install software at first with flatpaks, toolbox for rare utilities, and 
 
 # Primus
 Setup private dns (88.198.70.38	88.198.70.39).
-rpm-ostree upgrade ; flatpak update ; systemctl reboot 
+sudo sed -i 's/^AutomaticUpdatePolicy =.*/AutomaticUpdatePolicy = check/' /etc/rpm-ostreed.conf ; rpm-ostree upgrade ; flatpak update ; systemctl reboot 
 
 # Secundus 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo ;
@@ -22,18 +22,18 @@ sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free
 
 # Quintus
 
-rpm-ostree install tmux ; rpm-ostree install git ; rpm-ostree install ag ;rpm-ostree install lsd ; rpm-ostree install lsd fzf ; rpm-ostree install neovim ; rpm-ostree install zsh ; sudo usermod --shell /usr/bin/zsh $USER ;  systemctl reboot
+rpm-ostree install bat lsd fzf git tmux ag; systemctl reboot
 
 # Sextus
 
-Flatpak installs: brave.
+Flatpak installs: brave, neovim
 
 cp /var/lib/flatpak/app/com.brave.Browser/active/files/share/applications/com.brave.Browser.desktop ~/.config/autostart ;
 cp /usr/share/applications/org.gnome.Shell.desktop ~/.config/autostart ; systemctl restart
 
 # Post install 
 
-oh-my-zsh, bat (https://github.com/sharkdp/bat), .zshrc, hack font, sudo wget https://hosts.ubuntu101.co.za/superhosts.deny -O /etc/hosts.deny/ (https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist), vpn. htop. bandwhich.
+sudo wget https://hosts.ubuntu101.co.za/superhosts.deny -O /etc/hosts.deny/ (https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist), vpn. htop. bandwhich.
 
 # Browser extensions 
 ublock origin with updated sources, sponsorblock, video speed controller, Random User-Agent (Switcher), Simple Login, Enhancer for Youtube, Dark Reader.
