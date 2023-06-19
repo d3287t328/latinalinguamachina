@@ -41,3 +41,4 @@ ublock origin with updated sources, sponsorblock, video speed controller, Random
 # Tweak terminal profile preferences
 
 # Reference https://github.com/iaacornus/silverblue-postinstall_upgrade/tree/main
+            https://fedoramagazine.org/how-i-customize-fedora-silverblue-and-fedora-kinoite/
