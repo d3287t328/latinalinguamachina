@@ -3,11 +3,18 @@ Aim to install software at first with flatpaks, toolbox for rare utilities, and 
 
 # Primus
 Setup private dns (88.198.70.38	88.198.70.39).
-sudo sed -i 's/^AutomaticUpdatePolicy =.*/AutomaticUpdatePolicy = check/' /etc/rpm-ostreed.conf ; rpm-ostree upgrade ; flatpak update ; systemctl reboot 
+
+sudo sed -i 's/^AutomaticUpdatePolicy =.*/AutomaticUpdatePolicy = check/' /etc/rpm-ostreed.conf ; rpm-ostree reload ; systemctl enable rpm-ostreed-automatic.timer --now ; rpm-ostree upgrade ; flatpak update ; systemctl reboot 
 
 # Secundus 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo ;
+flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org ; 
+flatpak update --appstream ; flatpak update ; 
 sudo systemctl disable NetworkManager-wait-online.service ; sudo rm /etc/xdg/autostart/org.gnome.Software.desktop ; systemctl reboot
+
+# Tertius
+
+sudo rpm-ostree install akmod-nvidia xorg-x11-drv-nvidia-cuda
 
 # Tertius
 Install Extension Manager from Software app 
@@ -22,7 +29,8 @@ sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free
 
 # Quintus
 
-rpm-ostree install bat lsd fzf git tmux ag; systemctl reboot
+rpm-ostree install bat lsd fzf git tmux ag; (crontab -l ; echo "0 22 * * 0 sudo rpm-ostree upgrade && sudo systemctl reboot") | crontab -
+ ; systemctl reboot
 
 # Sextus
 
