@@ -31,7 +31,7 @@ Install user themes, Extension List, App Indicator, Removable Drive Menu, Sound 
 # Quartus 
 
 sudo rpm-ostree install ttps://mirrors.rpmfusion.org/nonfree/fedora/ ;
-sudo rpm-ostree install bat lsd fzf git tmux ag cronie ; systemctl reboot
+sudo rpm-ostree install bat lsd fzf git tmux ag cronie pip ; systemctl reboot
 
 # Sextus
 
