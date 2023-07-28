@@ -1,3 +1,4 @@
+# Derived from the implementation guide one shot. https://github.com/timescale/vector-cookbook/blob/main/intro_langchain_pgvector/langchain_pgvector_intro.ipynb
 import os
 import pandas as pd
 import numpy as np
