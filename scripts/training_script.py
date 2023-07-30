@@ -55,7 +55,7 @@ for epoch in range(num_epochs):
     # train
     model.train()
     train_loss = 0
-    for batch_idx, (inputs, targets) in enumerate(train_loader):
+    for inputs, targets in train_loader:
         inputs, targets = inputs.to(device), targets.to(device)
         optimizer.zero_grad()
         outputs = model(inputs)
@@ -70,7 +70,7 @@ for epoch in range(num_epochs):
     model.eval()
     val_loss = 0
     with torch.no_grad():
-        for batch_idx, (inputs, targets) in enumerate(val_loader):
+        for inputs, targets in val_loader:
             inputs, targets = inputs.to(device), targets.to(device)
             outputs = model(inputs)
             loss = criterion(outputs, targets)

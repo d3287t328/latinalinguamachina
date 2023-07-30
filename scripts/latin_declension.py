@@ -21,15 +21,11 @@ def get_declension(word):
         'dominus': {'sg_masc': '2nd', 'sg_fem': '2nd', 'sg_neut': '2nd', 'pl_masc': '2nd', 'pl_fem': '2nd', 'pl_neut': '2nd'},
         # Add more declensions here...
     }
-    if word in declensions:
-        return declensions[word]
-    else:
-        return {}
+    return declensions.get(word, {})
 
 if len(sys.argv) > 1:
     word = sys.argv[1]
-    declension = get_declension(word)
-    if declension:
+    if declension := get_declension(word):
         print(f'{word} has the following declensions:')
         print(f'Singular masculine: {declension["sg_masc"]}')
         print(f'Singular feminine: {declension["sg_fem"]}')

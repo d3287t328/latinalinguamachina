@@ -30,8 +30,7 @@ def num_tokens_from_string(string: str, encoding_name = "cl100k_base") -> int:
     if not string:
         return 0
     encoding = tiktoken.get_encoding(encoding_name)
-    num_tokens = len(encoding.encode(string))
-    return num_tokens
+    return len(encoding.encode(string))
 
 text_splitter = TokenTextSplitter(chunk_size=512,chunk_overlap=103)
 new_list = []
@@ -42,9 +41,10 @@ for i in range(len(df.index)):
         new_list.append([df['title'][i], df['content'][i], df['url'][i]])
     else:
         split_text = text_splitter.split_text(text)
-        for j in range(len(split_text)):
-            new_list.append([df['title'][i], split_text[j], df['url'][i]])
-
+        new_list.extend(
+            [df['title'][i], split_text[j], df['url'][i]]
+            for j in range(len(split_text))
+        )
 df_new = pd.DataFrame(new_list, columns=['title', 'content', 'url'])
 df_new.to_csv('blog_posts_data_chunked.csv', index=False)
 

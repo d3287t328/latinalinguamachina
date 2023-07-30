@@ -29,7 +29,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 checkpoint_filename = 'model_checkpoint.pth'
 
 # Training loop
-for epoch in range(num_epochs):
+for _ in range(num_epochs):
     # Train the model for one epoch
     train_loss = train(model, optimizer, train_loader)
 
@@ -38,7 +38,7 @@ for epoch in range(num_epochs):
 
 # After training is complete, load the latest checkpoint and resume training if desired
 load_checkpoint(model, optimizer, checkpoint_filename)
-for epoch in range(resume_epoch, num_epochs):
+for _ in range(resume_epoch, num_epochs):
 # Train the model for one epoch
     train_loss = train(model, optimizer, train_loader)
 

@@ -13,11 +13,11 @@ def tanh_function(x):
     print(f"    e^{x} = {exp_x:.2f}")
     print(f"  Computing e^(-{x})...")
     print(f"    e^(-{x}) = {exp_neg_x:.2f}")
-    print(f"  Computing the numerator...")
+    print("  Computing the numerator...")
     print(f"    e^{x} - e^(-{x}) = {num:.2f}")
-    print(f"  Computing the denominator...")
+    print("  Computing the denominator...")
     print(f"    e^{x} + e^(-{x}) = {den:.2f}")
-    print(f"  Computing the final result...")
+    print("  Computing the final result...")
     print(f"    (e^{x} - e^(-{x})) / (e^{x} + e^(-{x})) = {y:.2f}")
     return y
 
