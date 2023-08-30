@@ -33,9 +33,7 @@ class BIMTNetwork(nn.Module):
         return x
 
     def connection_cost(self, scale_factor):
-        cost = 0
-        for layer in self.layers:
-            cost += torch.sum(layer.connection_lengths())
+        cost = sum(torch.sum(layer.connection_lengths()) for layer in self.layers)
         return cost * scale_factor
 
     def flatten(self, x):
